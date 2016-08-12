@@ -13,40 +13,23 @@ import {
 } from 'react-native';
 
 class CustomMarker extends Component {
-  constructor() {
-    super();
-  }
-
-render() {
-//  alert(this.props.title);
-  return (
-
-  <View style={[styles.container, this.props.style]}>
-    <View style={styles.bubble}>
-      <View style={styles.amount}>
-        <Text style={styles.text}> {this.props.title} </Text>
-        <Text style={styles.text}> {this.props.description} </Text>
-        <TouchableHighlight onPress={ () => this.handleButtonPress('hard') }>
-          <Text style={styles.text}>{this.props.link} </Text>
-        </TouchableHighlight>
-      </View>
-    </View>
-    <View style={styles.arrowBorder} />
-    <View style={styles.arrow} />
-  </View>
-
-
-  //<Text> {this.props.title} </Text>
-  //<Text> {this.props.description} </Text>
-  //<Text> {this.props.link} </Text>
-  // <MapView.Marker
-  //   coordinate={marker.latlang}
-  //   title={marker.title}
-  //   description={marker.description}
-  //   link={marker.link}
-  // />
-)
-}
+  render() {
+    return (
+       <View style={[styles.container, this.props.style]}>
+          <View style={styles.bubble}>
+            <View style={styles.amount}>
+              <Text style={styles.text}> {this.props.title} </Text>
+              <Text style={styles.text}> {this.props.description} </Text>
+              <TouchableHighlight onPress={ () => this.handleButtonPress('hard') }>
+                <Text style={styles.text}>{this.props.link} </Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+          <View style={styles.arrowBorder} />
+          <View style={styles.arrow} />
+        </View>
+      );
+    }
 }
 
 var styles = StyleSheet.create({
@@ -65,8 +48,6 @@ var styles = StyleSheet.create({
   },
   dollar: {
 
-    //color: '#FFFFFF',
-    //fontSize: 10,
   },
   amount: {
     flex: 1,

@@ -1,38 +1,44 @@
 import React, { Component, PropTypes } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
   Button,
   Link,
-  View,
+  StyleSheet,
+  Text,
   TouchableHighlight,
-  TextInput,
-  Navigator,
-  Dimensions
+  View
 } from 'react-native';
 
 import Hike from '../components/Hike';
+import { fetchhike, navigateTo } from '../actions/hike';
 
 class App extends Component {
 
-  constructor() {
+  constructor(props) {
    super();
    this.handleButtonPress = this.handleButtonPress.bind(this);
   }
 
   handleButtonPress(name,type='Normal') {
-    this.props.navigator.push({
-      component: Hike,
-      passProps: {
-        name: name
-      },
-      type: type
-    })
+    const { dispatch } = this.props;
+      dispatch(fetchhike());
+      dispatch(navigateTo(name));
   }
 
   render() {
-
+    const { dispatch, router, hike } = this.props;
+    const { route } = router;
+    const { path } = route;
+    const CREDENTIALS_PATH = 'hike';
+    switch (path) {
+    case CREDENTIALS_PATH:
+    return (
+      <Hike
+       dispatch = {dispatch}
+       hike = {hike}
+       path = { path }
+      />
+    );
+    default:
     return (
       <View style={styles.container}>
         <View style={styles.inputsContainer}>
@@ -48,6 +54,7 @@ class App extends Component {
         </View>
       </View>
     );
+   }
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+
 import {
   AppRegistry,
   StyleSheet,
@@ -10,15 +11,18 @@ import {
   TouchableHighlight,
   TextInput,
   Dimensions,
+  AlertIOS,
   ActivityIndicatorIOS
 } from 'react-native';
 
 import MapView from 'react-native-maps';
 import CustomMarker from '../components/CustomMarker';
+import { fetchhike } from '../actions/hike';
 
 class Hike extends Component {
   constructor() {
     super();
+
     this.state = {
       isLoading: false,
       region: {
@@ -27,26 +31,26 @@ class Hike extends Component {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
     },
-     markers : [
-    {
-      latlang : {
-        latitude: 37.352176,
-        longitude: -122.137690,
-      },
-      title: 'Rancho San Antonio',
-      description: '9.4 miles',
-      link: 'http://o.bahiker.com/southbayhikes/ranchoblack.html'
-    },
-    {
-      latlang : {
-        latitude:  37.351334,
-        longitude: 122.92620,
-      },
-      title: 'Hike 2',
-      description: '9.4 miles',
-      link: 'http://o.bahiker.com/southbayhikes/ranchoblack.html'
-    }
-   ]
+     markers : [ ]
+    // {
+    //   latlang : {
+    //     latitude: 37.352176,
+    //     longitude: -122.137690,
+    //   },
+    //   title: 'Rancho San Antonio',
+    //   description: '9.4 miles',
+    //   link: 'http://o.bahiker.com/southbayhikes/ranchoblack.html'
+    // },
+    // {
+    //   latlang : {
+    //     latitude:  37.351334,
+    //     longitude: 122.92620,
+    //   },
+    //   title: 'Hike 2',
+    //   description: '9.4 miles',
+    //   link: 'http://o.bahiker.com/southbayhikes/ranchoblack.html'
+    // }
+   // ]
     }
 
     this.onRegionChange = this.onRegionChange.bind(this);
@@ -78,41 +82,34 @@ componentDidMount() {
         }});
 
     })
+    this.getMarker();
 }
+
+getMarker() {
+  const { dispatch, hike } = this.props;
+  const latitute = this.state.region.latitute;
+  const longitude = this.state.region.longitude;
+}
+
 render() {
-  return (
-
-    <MapView style={styles.container}
-      region={this.state.region}
-      onRegionChange={this.onRegionChange}
-      showsUserLocation = {true}>
-      {this.state.markers.map(marker => (
-         <MapView.Marker coordinate={marker.latlang}>
-         <MapView.Callout tooltip>
-           <CustomMarker {...marker}>
-           </CustomMarker>
-         </MapView.Callout>
-         </MapView.Marker>
-     ))}
-    </MapView>
-
-  //  {this.state.markers.map(marker => (
-  //    <MapView.Marker coordinate={marker.latlang}>
-  //    <MapView.Callout>
-  //       <View>
-  //         <Text> Foobar </Text>
-  //       </View>
-  //     </MapView.Callout>
-  //     </MapView.Marker>
-  //   // <MapView.Marker
-  //   //   coordinate={marker.latlang}
-  //   //   title={marker.title}
-  //   //   description={marker.description}
-  //   //   link={marker.link}
-  //   // />
-  // ))}
-  );
-}
+  const markers = [];
+  markers.push(this.props.hike);
+    return (
+      <MapView style={styles.container}
+        region={this.state.region}
+        onRegionChange={this.onRegionChange}
+        showsUserLocation = {true}>
+        {markers.map(marker => (
+           <MapView.Marker coordinate={marker.latlang} key={marker.latlang.latitude}>
+           <MapView.Callout tooltip>
+             <CustomMarker {...marker}>
+             </CustomMarker>
+           </MapView.Callout>
+           </MapView.Marker>
+       ))}
+      </MapView>
+    );
+  }
 }
 
 var styles = StyleSheet.create({
