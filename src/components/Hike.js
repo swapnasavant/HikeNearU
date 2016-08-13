@@ -21,6 +21,7 @@ import { fetchhike } from '../actions/hike';
 
 class Hike extends Component {
   constructor() {
+    super();
      this.state = {
       isLoading: false,
       region: {
