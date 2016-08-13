@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import Hike from '../components/Hike';
-import { fetchhike, navigateTo } from '../actions/hike';
+import { getNearByHikes, navigateTo } from '../actions/hike';
 
 class App extends Component {
 
@@ -20,7 +20,6 @@ class App extends Component {
 
   handleButtonPress(name,type='Normal') {
     const { dispatch } = this.props;
-      dispatch(fetchhike());
       dispatch(navigateTo(name));
   }
 

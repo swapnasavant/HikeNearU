@@ -21,38 +21,15 @@ import { fetchhike } from '../actions/hike';
 
 class Hike extends Component {
   constructor() {
-    super();
-
-    this.state = {
+     this.state = {
       isLoading: false,
       region: {
             latitude: 37.78825,
             longitude: -122.4324,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
-    },
-     markers : [ ]
-    // {
-    //   latlang : {
-    //     latitude: 37.352176,
-    //     longitude: -122.137690,
-    //   },
-    //   title: 'Rancho San Antonio',
-    //   description: '9.4 miles',
-    //   link: 'http://o.bahiker.com/southbayhikes/ranchoblack.html'
-    // },
-    // {
-    //   latlang : {
-    //     latitude:  37.351334,
-    //     longitude: 122.92620,
-    //   },
-    //   title: 'Hike 2',
-    //   description: '9.4 miles',
-    //   link: 'http://o.bahiker.com/southbayhikes/ranchoblack.html'
-    // }
-   // ]
-    }
-
+      }
+     }
     this.onRegionChange = this.onRegionChange.bind(this);
   }
 
@@ -91,22 +68,29 @@ getMarker() {
   const longitude = this.state.region.longitude;
 }
 
+renderMarkers() {
+  const { hike } = this.props;
+  const { marker } = hike;
+  if(marker.length > 0) {
+  return marker.map(mark => (
+     <MapView.Marker coordinate={mark.latlang} key={mark.id}>
+     <MapView.Callout tooltip>
+       <CustomMarker {...mark}>
+       </CustomMarker>
+     </MapView.Callout>
+     </MapView.Marker>
+ ));
+ }
+ return null;
+}
+
 render() {
-  const markers = [];
-  markers.push(this.props.hike);
     return (
       <MapView style={styles.container}
         region={this.state.region}
         onRegionChange={this.onRegionChange}
         showsUserLocation = {true}>
-        {markers.map(marker => (
-           <MapView.Marker coordinate={marker.latlang} key={marker.latlang.latitude}>
-           <MapView.Callout tooltip>
-             <CustomMarker {...marker}>
-             </CustomMarker>
-           </MapView.Callout>
-           </MapView.Marker>
-       ))}
+        { this.renderMarkers()}
       </MapView>
     );
   }

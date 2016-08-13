@@ -1,12 +1,6 @@
 const initialState = {
-  latlang : {
-    latitude: 0,
-    longitude: 0,
-  },
-  title: '',
-  description: '',
-  link: '',
-  intensity:''
+  marker : {},
+  intensity : 'Easy',
 };
 
 export const FETCH_HIKE = 'FETCH_HIKE';
@@ -18,13 +12,7 @@ export default function hike(state=initialState, action={}) {
     case FETCH_HIKE :
     return {
         ...state,
-        latlang : {
-        latitude: 37.352176,
-        longitude: -122.137690,
-        },
-      title: 'Rancho San Antonio',
-      description: '9.4 miles',
-      link: 'http://o.bahiker.com/southbayhikes/ranchoblack.html'
+        marker : action.json
      };
      case CHANGE_SELECTED_TASKS:
       return {

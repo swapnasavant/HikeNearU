@@ -4,14 +4,16 @@ export const CHANGE_SELECTED_TASKS = 'CHANGE_SELECTED_TASKS';
 const CHANGE_ROUTE = 'CHANGE_ROUTE';
 const GET_HIKES = 'http://localhost:3000/hike';
 
-export function fetchhike() {
+export function fetchhike(json) {
   return {
     type: FETCH_HIKE,
+    json
   };
 }
 
 export function navigateTo(selectedTasks) {
   return dispatch => {
+    dispatch(getNearByHikes());
     dispatch(navigate({ path: CREDENTIALS_PATH }));
     return dispatch({
       type: CHANGE_SELECTED_TASKS,
@@ -34,8 +36,9 @@ export function navigate(route) {
 }
 
 export function getNearByHikes() {
-  const abc = callApi(GET_HIKES);
-  console.log(abc);
+  return dispatch =>
+    callApi(GET_HIKES)
+      .then(json => dispatch(fetchhike(json)));
 }
 
 function callApi(URL, obj = {}) {
