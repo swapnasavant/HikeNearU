@@ -2,18 +2,18 @@ export const FETCH_HIKE = 'FETCH_HIKE';
 export const CREDENTIALS_PATH = 'hike';
 export const CHANGE_SELECTED_TASKS = 'CHANGE_SELECTED_TASKS';
 const CHANGE_ROUTE = 'CHANGE_ROUTE';
-const GET_HIKES = 'http://localhost:3000/hike';
+const GET_HIKES = 'http://localhost:3000/hike?intensity=';
 
 export function fetchhike(json) {
   return {
     type: FETCH_HIKE,
-    json
+    json,
   };
 }
 
 export function navigateTo(selectedTasks) {
   return dispatch => {
-    dispatch(getNearByHikes());
+    dispatch(getNearByHikes(selectedTasks));
     dispatch(navigate({ path: CREDENTIALS_PATH }));
     return dispatch({
       type: CHANGE_SELECTED_TASKS,
@@ -30,14 +30,13 @@ export function changeRoute(route) {
 }
 
 export function navigate(route) {
-  return (dispatch, getState) => {
-    return dispatch(changeRoute(route));
-  };
+  return (dispatch) => dispatch(changeRoute(route));
 }
 
-export function getNearByHikes() {
+export function getNearByHikes(selectedTasks) {
+  const URL = `${GET_HIKES}${selectedTasks}`;
   return dispatch =>
-    callApi(GET_HIKES)
+    callApi(URL)
       .then(json => dispatch(fetchhike(json)));
 }
 
