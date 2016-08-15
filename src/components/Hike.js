@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   bubble: {
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    backgroundColor: '#C56C39',
   },
   latlng: {
     width: 200,
@@ -93,7 +93,7 @@ class Hike extends Component {
     const { marker } = hike;
     if (marker.length > 0) {
       return marker.map(mark => (
-        <MapView.Marker coordinate={mark.latlang} key={mark.id}>
+        <MapView.Marker pinColor="#C56C39" coordinate={mark.latlang} key={mark.id}>
           <MapView.Callout tooltip style={[styles.bubble, styles.button]}>
             <CustomMarker {...mark} />
           </MapView.Callout>

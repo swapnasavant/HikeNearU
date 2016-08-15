@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   fullWidthButton: {
-    backgroundColor: '#f19622',
+    backgroundColor: '#C56C39',
     height: 20,
     width: 200,
     marginLeft: 100,

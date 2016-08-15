@@ -3,5 +3,5 @@ import router from './router';
 
 export {
   hike,
-  router
+  router,
 };

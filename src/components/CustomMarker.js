@@ -11,6 +11,7 @@ const propTypes = {
   link: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
+  duration: PropTypes.string,
 };
 
 const styles = StyleSheet.create({
@@ -22,13 +23,22 @@ const styles = StyleSheet.create({
     width: 100,
     flexDirection: 'row',
     alignSelf: 'flex-start',
-    backgroundColor: '#4da2ab',
+    backgroundColor: '#2D4B1E',
     borderRadius: 2,
     borderColor: '#FFFFFF',
     borderWidth: 0.5,
   },
   amount: {
     flex: 1,
+  },
+  text: {
+    fontSize: 7,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  descriptionText: {
+    fontSize: 4,
+    color: '#FFFFFF',
   },
 });
 
@@ -45,14 +55,15 @@ class CustomMarker extends Component {
   }
 
   render() {
-    const { title, description } = this.props;
+    const { title, description, duration } = this.props;
     return (
       <TouchableHighlight onPress={this.goToPlace}>
         <View style={[styles.container]}>
           <View style={styles.bubble}>
             <View style={styles.amount}>
-              <Text> {title} </Text>
-              <Text> {description} </Text>
+              <Text style={styles.text}> {title} </Text>
+              <Text style={styles.text}> {duration} </Text>
+              <Text style={styles.descriptionText}> {description} </Text>
             </View>
           </View>
         </View>
