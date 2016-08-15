@@ -11,7 +11,7 @@ export default function router(state = initialState, action) {
         route: action.route,
       };
 
-    case consts.START_OVER:
+    case consts.BACK_ROUTE:
       return { ...initialState };
 
     default:
